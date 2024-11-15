@@ -1,6 +1,7 @@
 package se.lexicon.course_manager.data.dao;
 
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,51 +21,52 @@ public class StudentCollectionRepositoryTest {
     @Autowired
     private StudentDao testObject;
 
+    private Student student;
+
     @Test
     @DisplayName("Test context successfully setup")
     void context_loads() {
         assertFalse(testObject == null);
     }
 
+    @BeforeEach
+    void setUp() {
+         student=testObject.createStudent("Erik Svennson","erik@gmail.com","Storgatan13 Stockholm");
+    }
 
     @Test
     void createStudent(){
-        Student student=testObject.createStudent("Erik Svennson","erik@gmail.com","Storgatan13 Stockholm");
-       assertNotNull(student);
+        Student newStudent=testObject.createStudent("Frederik Svennson","fedrrik@gmail.com","Storgatan33 Stockholm");
+        assertNotNull(newStudent);
     }
 
     @Test
     void findById() {
-        Student created = testObject.createStudent("Test Testsson", "Test@test.ts", "Testgatan 1 1337 TEST");
-        Student found = testObject.findById(created.getId());
-        assertEquals(created, found);
+        Student found = testObject.findById(student.getId());
+        assertEquals(student, found);
     }
 
     @Test
     void testFindByEmailIgnoreCase() {
-        Student student=testObject.createStudent("Erik Svennson","erik@gmail.com","Storgatan13 Stockholm");
         Student found=testObject.findByEmailIgnoreCase(student.getEmail());
         assertEquals(student,found);
     }
 
     @Test
     void testFindByNameContains() {
-        Student student=testObject.createStudent("Erik Svennson","erik@gmail.com","Storgatan13 Stockholm");
         Collection<Student> found=testObject.findByNameContains(student.getName());
         assertTrue(found.contains(student));
     }
 
     @Test
     void testFindAll() {
-        Student student=testObject.createStudent("Erik Svennson","erik@gmail.com","Storgatan13 Stockholm");
-        Student student1=testObject.createStudent("Fredrik","fedrik@gmail.com","Stockholm");
+         Student student1=testObject.createStudent("Fredrik","fedrik@gmail.com","Stockholm");
         Collection<Student> found=testObject.findAll();
-       assertEquals(2,found.size());
+        assertEquals(2,found.size());
     }
 
     @Test
     void testRemoveStudent() {
-        Student student=testObject.createStudent("Erik Svennson","erik@gmail.com","Storgatan13 Stockholm");
         Student student1=testObject.createStudent("Fredrik","fedrik@gmail.com","Stockholm");
         Collection<Student> found=testObject.findAll();
         assertTrue(testObject.removeStudent(student));

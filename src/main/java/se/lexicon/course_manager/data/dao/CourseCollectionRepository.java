@@ -43,7 +43,7 @@ public class CourseCollectionRepository implements CourseDao{
     public Collection<Course> findByNameContains(String name) {
         Collection<Course> courseList=new HashSet<>();
         for(Course course:courses){
-            if(course.getCourseName()==name){
+            if(course.getCourseName().equalsIgnoreCase(name.trim())){
                 courseList.add(course);
             }
         }
