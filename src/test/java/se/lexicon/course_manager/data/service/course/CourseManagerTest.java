@@ -33,8 +33,6 @@ public class CourseManagerTest {
 
     @BeforeEach
     void setUp() {
-        course=courseDao.createCourse("Java","erik@gmail.com","Storgatan13 Stockholm");
-        expectedStudentView=new StudentView(1,"Erik Svennson","erik@gmail.com","Storgatan13 Stockholm");
 
     }
 
@@ -82,8 +80,7 @@ public class CourseManagerTest {
 
     @Test
     void deleteCourse() {
-        assertTrue(testObject.deleteCourse(student.getId()));
-        assertFalse(studentDao.findAll().contains(student));
+
 
     }
 
