@@ -3,10 +3,13 @@ package se.lexicon.course_manager.data.dao;
 
 
 
+import se.lexicon.course_manager.dto.views.StudentView;
 import se.lexicon.course_manager.model.Course;
+import se.lexicon.course_manager.model.Student;
 
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.List;
 
 public interface CourseDao {
 
